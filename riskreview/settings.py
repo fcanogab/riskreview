@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'customauth.apps.CustomauthConfig'
+    'customauth.apps.CustomauthConfig',
+    'risks.apps.RisksConfig',
 ]
 
 MIDDLEWARE = [
