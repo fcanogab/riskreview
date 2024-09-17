@@ -37,6 +37,8 @@ class AttributeForm(forms.ModelForm):
             attribute.components.set(self.cleaned_data['components'])
         if self.cleaned_data['threats']:
             attribute.threats.set(self.cleaned_data['threats'])
+        if self.cleaned_data['controls']:
+            attribute.controls.set(self.cleaned_data['controls'])            
         return attribute
 
 
