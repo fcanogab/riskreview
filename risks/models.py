@@ -109,8 +109,8 @@ class Category(models.Model):
     description = models.TextField(blank=True)
     creation_datetime = models.DateTimeField(auto_now_add=True)
     modification_datetime = models.DateTimeField(auto_now=True)
-    components = models.ManyToManyField(Component, related_name="categories")
-    threats = models.ManyToManyField(Threat, related_name="categories")
+    components = models.ManyToManyField(Component, related_name="categories", blank=True)
+    threats = models.ManyToManyField(Threat, related_name="categories", blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
