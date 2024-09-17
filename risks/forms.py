@@ -63,19 +63,16 @@ class ThreatForm(forms.ModelForm):
 
 
 class ControlForm(forms.ModelForm):
-    threats = forms.ModelMultipleChoiceField(queryset=Threat.objects.all(), required=False)
     implemented_controls = forms.ModelMultipleChoiceField(queryset=ImplementedControl.objects.all(), required=False)
 
     class Meta:
         model = Control
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'threats']
 
     def save(self, commit=True):
         control = super().save(commit=False)
         if commit:
             control.save()
-        if self.cleaned_data['threats']:
-            control.threats.set(self.cleaned_data['threats'])
         if self.cleaned_data['implemented_controls']:
             control.implemented_controls.set(self.cleaned_data['implemented_controls'])
         return control
