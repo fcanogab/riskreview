@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Control</h1>
+	<a href="{% url 'control_add' %}">New</a>
+	{% if control_list %}
+	<table border="1">
+  	<tr>
+    	<th>Control</th>
+    	<th>Description</th>
+    	<th></th>
+  	</tr>
+  	{% for control in control_list %}
+  	<tr>
+    	<td><a href="{{ control.get_absolute_url }}">{{ control.name }}</a></td>
+    	<td><a href="{% url 'control_delete' control.pk %}">Delete</a></td>
+  	</tr>
+  	{% endfor %}
+	</table>
+	{% else %}
+  	<p>There are no controls.</p>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ implemented_control.name }}</h1>
+    <p><a href="{% url 'implemented_control_update' implemented_control.pk %}">Edit</a>
+    <p>{{ implementd_control.description }}</p>     
+{% endblock %}

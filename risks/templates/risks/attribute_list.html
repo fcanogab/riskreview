@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Attribute</h1>
+	<a href="{% url 'attribute_add' %}">New</a>
+	{% if attribute_list %}
+	<table border="1">
+  	<tr>
+    	<th>Attribute</th>
+    	<th>Description</th>
+    	<th></th>
+  	</tr>
+  	{% for attribute in attribute_list %}
+  	<tr>
+    	<td><a href="{{ attribute.get_absolute_url }}">{{ attribute.name }}</a></td>
+    	<td><a href="{% url 'attribute_delete' attribute.pk %}">Delete</a></td>
+  	</tr>
+  	{% endfor %}
+	</table>
+	{% else %}
+  	<p>There are no attributes.</p>
+	{% endif %}
+{% endblock %}

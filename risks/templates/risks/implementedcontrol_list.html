@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Implemented Control</h1>
+	<a href="{% url 'implemented_control_add' %}">New</a>
+	{% if implemented_control_list %}
+	<table border="1">
+  	<tr>
+    	<th>Implemented Control</th>
+    	<th>Description</th>
+    	<th></th>
+  	</tr>
+	</table>
+	{% else %}
+  	<p>There are no implemented controls.</p>
+	{% endif %}
+{% endblock %}

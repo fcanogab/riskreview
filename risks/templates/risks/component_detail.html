@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ component.name }}</h1>
+    <p><a href="{% url 'component_update' component.pk %}">Edit</a>
+    <p>{{ component.description }}</p>
+{% endblock %}

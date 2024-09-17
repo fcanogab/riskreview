@@ -6,17 +6,19 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Product, Component, Attribute, Threat, Control, ImplementedControl, Category
+from .forms import ComponentForm, AttributeForm, ThreatForm, ControlForm
+
 
 #### Product views ####
 class ProductCreate(LoginRequiredMixin, CreateView):
     model = Product
-    fields = ['name', 'description', 'components']
+    fields = ['name', 'description']
 
     success_url = reverse_lazy('product_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ProductDetail(LoginRequiredMixin, DetailView):
     model = Product
@@ -45,13 +47,13 @@ class ProductDelete(LoginRequiredMixin,DeleteView):
 #### Component views ####
 class ComponentCreate(LoginRequiredMixin, CreateView):
     model = Component
-    fields = ['name', 'description', 'product', 'attributes']
+    form_class = ComponentForm
 
     success_url = reverse_lazy('component_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ComponentDetail(LoginRequiredMixin, DetailView):
     model = Component
@@ -70,7 +72,7 @@ class ComponentList(LoginRequiredMixin, ListView):
 
 class ComponentUpdate(LoginRequiredMixin,UpdateView):
     model = Component
-    fields = ['name', 'description', 'product', 'attributes']
+    form_class = ComponentForm
 
 class ComponentDelete(LoginRequiredMixin,DeleteView):
     model = Component
@@ -80,13 +82,13 @@ class ComponentDelete(LoginRequiredMixin,DeleteView):
 #### Attribute views ####
 class AttributeCreate(LoginRequiredMixin, CreateView):
     model = Attribute
-    fields = ['name', 'description', 'components', 'threats']
+    form_class = AttributeForm
 
     success_url = reverse_lazy('attribute_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class AttributeDetail(LoginRequiredMixin, DetailView):
     model = Attribute
@@ -105,7 +107,7 @@ class AttributeList(LoginRequiredMixin, ListView):
 
 class AttributeUpdate(LoginRequiredMixin,UpdateView):
     model = Attribute
-    fields = ['name', 'description', 'components', 'threats']
+    form_class = AttributeForm
 
 class AttributeDelete(LoginRequiredMixin,DeleteView):
     model = Attribute
@@ -115,13 +117,13 @@ class AttributeDelete(LoginRequiredMixin,DeleteView):
 #### Threat views ####
 class ThreatCreate(LoginRequiredMixin, CreateView):
     model = Threat
-    fields = ['name', 'description', 'attributes', 'categories', 'controls']
+    form_class = ThreatForm
 
     success_url = reverse_lazy('threat_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ThreatDetail(LoginRequiredMixin, DetailView):
     model = Threat
@@ -140,7 +142,7 @@ class ThreatList(LoginRequiredMixin, ListView):
 
 class ThreatUpdate(LoginRequiredMixin,UpdateView):
     model = Threat
-    fields = ['name', 'description', 'attributes', 'categories', 'controls']
+    form_class = ThreatForm
 
 class ThreatDelete(LoginRequiredMixin,DeleteView):
     model = Threat
@@ -150,13 +152,13 @@ class ThreatDelete(LoginRequiredMixin,DeleteView):
 #### Control views ####
 class ControlCreate(LoginRequiredMixin, CreateView):
     model = Control
-    fields = ['name', 'description', 'threats', 'implemented_controls']
+    form_class = ControlForm
 
     success_url = reverse_lazy('control_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ControlDetail(LoginRequiredMixin, DetailView):
     model = Control
@@ -175,7 +177,7 @@ class ControlList(LoginRequiredMixin, ListView):
 
 class ControlUpdate(LoginRequiredMixin,UpdateView):
     model = Control
-    fields = ['name', 'description', 'threats', 'implemented_controls']
+    form_class = ControlForm
 
 class ControlDelete(LoginRequiredMixin,DeleteView):
     model = Control
@@ -189,9 +191,9 @@ class ImplementedControlCreate(LoginRequiredMixin, CreateView):
 
     success_url = reverse_lazy('implemented_control_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class ImplementedControlDetail(LoginRequiredMixin, DetailView):
     model = ImplementedControl
@@ -225,9 +227,9 @@ class CategoryCreate(LoginRequiredMixin, CreateView):
 
     success_url = reverse_lazy('category_list')
 
-def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 class CategoryDetail(LoginRequiredMixin, DetailView):
     model = Category

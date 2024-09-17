@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Category</h1>
+	<a href="{% url 'category_add' %}">New</a>
+	{% if category_list %}
+	<table border="1">
+  	<tr>
+    	<th>Category</th>
+    	<th>Description</th>
+    	<th></th>
+  	</tr>
+  	{% for category in category_list %}
+  	<tr>
+    	<td><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></td>
+    	<td><a href="{% url 'category_delete' category.pk %}">Delete</a></td>
+  	</tr>
+  	{% endfor %}
+	</table>
+	{% else %}
+  	<p>There are no categories.</p>
+	{% endif %}
+{% endblock %}

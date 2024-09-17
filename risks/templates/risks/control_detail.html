@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ product.name }}</h1>
-    <p><a href="{% url 'product_update' product.pk %}">Edit</a>
-    <p>{{ product.description }}</p>
+    <h1>{{ control.name }}</h1>
+    <p><a href="{% url 'control_update' control.pk %}">Edit</a>
+    <p>{{ control.description }}</p>
     <ul>
-        {% for component in product.components.all %}
+        {% for component in control.components.all %}
         <li><a href="{% url 'component_detail' component.pk %}">{{ component.name }}</a></li>
         {% endfor %}
     </ul>        

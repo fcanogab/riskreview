@@ -65,7 +65,7 @@ class Threat(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('attribute_detail', kwargs={'pk': self.pk})
+        return reverse('threat_detail', kwargs={'pk': self.pk})
     class Meta:
         ordering = ['name']
 
@@ -92,7 +92,7 @@ class ImplementedControl(models.Model):
     description = models.TextField(blank=True)
     creation_datetime = models.DateTimeField(auto_now_add=True)
     modification_datetime = models.DateTimeField(auto_now=True)
-    control = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="implemented_controls")
+    control = models.ForeignKey(Control, on_delete=models.CASCADE, related_name="implemented_controls")
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
