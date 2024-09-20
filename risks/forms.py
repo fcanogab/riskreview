@@ -6,6 +6,13 @@ class ComponentForm(forms.ModelForm):
     attributes = forms.ModelMultipleChoiceField(queryset=Attribute.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), required=False)
 
+    def __init__(self, *args, **kwargs):
+        product_id = kwargs.pop('product_id', None)
+        super().__init__(*args, **kwargs)
+
+        if product_id:
+            self.fields['product'].initial = product_id
+
     class Meta:
         model = Component
         fields = ['name', 'description', 'product']
@@ -19,6 +26,8 @@ class ComponentForm(forms.ModelForm):
         if self.cleaned_data['categories']:
             component.categories.set(self.cleaned_data['categories'])
         return component
+
+
 
 
 class AttributeForm(forms.ModelForm):
@@ -51,7 +60,7 @@ class AttributeForm(forms.ModelForm):
         if self.cleaned_data['threats']:
             attribute.threats.set(self.cleaned_data['threats'])
         if self.cleaned_data['controls']:
-            attribute.controls.set(self.cleaned_data['controls'])            
+            attribute.controls.set(self.cleaned_data['controls'])
         return attribute
 
 

@@ -51,6 +51,11 @@ class ComponentCreate(LoginRequiredMixin, CreateView):
 
     success_url = reverse_lazy('component_list')
 
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['product'] = self.request.GET.get('product_id')
+        return initial
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
