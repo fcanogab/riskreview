@@ -4,4 +4,13 @@
     <h1>{{ component.name }}</h1>
     <p><a href="{% url 'component_update' component.pk %}">Edit</a>
     <p>{{ component.description }}</p>
+    {% for attribute in component.attributes.all %}
+    <p>{{ attribute.name }}</p>
+        <ul>
+        {% for control in attribute.controls.all %}
+            <li>{{ control.name }}</li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+
 {% endblock %}

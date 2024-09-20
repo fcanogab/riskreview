@@ -3,7 +3,7 @@ from .models import Component, Attribute, Category, Threat, Control, Implemented
 
 
 class ComponentForm(forms.ModelForm):
-    attributes = forms.ModelMultipleChoiceField(queryset=Attribute.objects.all(), required=False)
+    attributes = forms.ModelMultipleChoiceField(queryset=Attribute.objects.all(), required=False, widget=forms.CheckboxSelectMultiple)
     categories = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), required=False)
 
     class Meta:
@@ -22,12 +22,25 @@ class ComponentForm(forms.ModelForm):
 
 
 class AttributeForm(forms.ModelForm):
-    components = forms.ModelMultipleChoiceField(queryset=Component.objects.all(), required=False)
-    threats = forms.ModelMultipleChoiceField(queryset=Threat.objects.all(), required=False)
+    components = forms.ModelMultipleChoiceField(
+        queryset=Component.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+    threats = forms.ModelMultipleChoiceField(
+        queryset=Threat.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
+    controls = forms.ModelMultipleChoiceField(
+        queryset=Control.objects.all(),
+        required=False,
+        widget=forms.CheckboxSelectMultiple
+    )
 
     class Meta:
         model = Attribute
-        fields = ['name', 'description']
+        fields = ['name', 'description', 'controls']
 
     def save(self, commit=True):
         attribute = super().save(commit=False)

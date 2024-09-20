@@ -74,6 +74,16 @@ class ComponentUpdate(LoginRequiredMixin,UpdateView):
     model = Component
     form_class = ComponentForm
 
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['attributes'] = self.object.attributes.all()
+        return initial
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.object.attributes.set(form.cleaned_data['attributes'])
+        return response
+
 class ComponentDelete(LoginRequiredMixin,DeleteView):
     model = Component
     success_url = reverse_lazy('component_list')
@@ -108,6 +118,16 @@ class AttributeList(LoginRequiredMixin, ListView):
 class AttributeUpdate(LoginRequiredMixin,UpdateView):
     model = Attribute
     form_class = AttributeForm
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['controls'] = self.object.controls.all()
+        return initial
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        self.object.controls.set(form.cleaned_data['controls'])
+        return response
 
 class AttributeDelete(LoginRequiredMixin,DeleteView):
     model = Attribute
